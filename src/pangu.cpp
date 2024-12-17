@@ -51,12 +51,12 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
                 setEnabled(!enabled_, keyEvent.inputContext());
                 if (notifications()) {
                     notifications()->call<INotifications::showTip>(
-                        "fcitx-fullwidth-toggle", _("Full width character"),
-                        enabled_ ? "fcitx-fullwidth-active"
-                                 : "fcitx-fullwidth-inactive",
-                        _("Full width Character"),
-                        enabled_ ? _("Full width Character is enabled.")
-                                 : _("Full width Character is disabled."),
+                        "fcitx-pangu-toggle", "Pangu",
+                        enabled_ ? "fcitx-pangu-active"
+                                 : "fcitx-pangu-inactive",
+                        "Pangu",
+                        enabled_ ? "Pangu is enabled."
+                                 : "Pangu is disabled.",
                         1000);
                 }
                 keyEvent.filterAndAccept();

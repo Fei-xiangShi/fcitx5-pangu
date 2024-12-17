@@ -1,5 +1,16 @@
 [Addon]
+Name[zh_CN]=盘古之白
+Name[zh_TW]=盤古之白
+Name[ja]=盤古の白
+Name[ko]=반고의 백
+Name[ru]=Белый Пангу
 Name=Pangu
+Comment[zh_CN]=在输入非 ASCII 字符时，自动插入空格
+Comment[zh_TW]=在輸入非 ASCII 字符時，自動插入空格
+Comment[ja]=非 ASCII 文字を入力すると自動的にスペースを挿入
+Comment[ko]=비 ASCII 문자를 입력할 때 자동으로 공백 삽입
+Comment[ru]=При вводе не ASCII символов автоматически вставляется пробел
+Comment=Auto insert space between non-ASCII characters and ASCII characters
 Category=Module
 Version=@PROJECT_VERSION@
 Library=pangu

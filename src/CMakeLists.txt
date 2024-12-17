@@ -1,5 +1,5 @@
 add_library(pangu SHARED pangu.cpp)
-target_link_libraries(pangu PRIVATE Fcitx5::Core Fcitx5::Config Fcitx5::Module::Notifications)
+target_link_libraries(pangu Fcitx5::Core Fcitx5::Config Fcitx5::Module::Notifications)
 set_target_properties(pangu PROPERTIES PREFIX "")
 install(TARGETS pangu DESTINATION "${FCITX_INSTALL_LIBDIR}/fcitx5")
 configure_file(pangu.conf.in pangu.conf)
