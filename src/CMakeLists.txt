@@ -1,0 +1,8 @@
+set(PANGU_SOURCES pangu.cpp)
+add_fcitx5_addon(pangu ${PANGU_SOURCES})
+target_link_libraries(pangu Fcitx5::Core Fcitx5::Notifications Fcitx5::Config)
+set_target_properties(pangu PROPERTIES PREFIX "")
+install(TARGETS pangu DESTINATION "${FCITX_INSTALL_LIBDIR}/fcitx5")
+configure_file(pangu.conf.in.in pangu.conf.in)
+fcitx5_translate_desktop_file("${CMAKE_CURRENT_BINARY_DIR}/pangu.conf.in" pangu.conf)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/pangu.conf" DESTINATION "${FCITX_INSTALL_PKGDATADIR}/addon")
