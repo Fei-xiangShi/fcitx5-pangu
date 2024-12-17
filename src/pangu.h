@@ -8,6 +8,7 @@
 #include <fcitx-config/configuration.h>
 #include <fcitx-config/iniparser.h>
 #include <fcitx-utils/i18n.h>
+#include <fcitx-utils/utf8.h>
 #include <fcitx/action.h>
 #include <fcitx/addoninstance.h>
 #include <fcitx/addonmanager.h>
@@ -53,8 +54,6 @@ public:
 
     FCITX_ADDON_DEPENDENCY_LOADER(notifications, instance_->addonManager());
 
-    bool inWhiteList(fcitx::InputContext *inputContext) const;
-
     void setEnabled(bool enabled, fcitx::InputContext *ic) {
         if (enabled != enabled_) {
             enabled_ = enabled;
@@ -63,7 +62,7 @@ public:
     }
 
 private:
-    bool enabled_ = false;
+    bool enabled_ = true;
     fcitx::Instance *instance_;
     PanguConfig config_;
     std::vector<std::unique_ptr<fcitx::HandlerTableEntry<fcitx::EventHandler>>>
@@ -84,9 +83,39 @@ private:
     }
 
     bool needSpace(uint32_t current, uint32_t last) const {
-        if (last == 0) return false;
-        return (isAscii(last) && !isAscii(current)) ||
-               (!isAscii(last) && isAscii(current));
+        if (last == 0) {
+            return false;
+        }
+        
+        bool currentIsAscii = isAscii(current);
+        bool currentIsCJK = isCJK(current);
+        bool lastIsAscii = isAscii(last);
+        bool lastIsCJK = isCJK(last);
+        
+        bool needSpace = (lastIsAscii && currentIsCJK) ||
+                        (lastIsCJK && currentIsAscii);
+
+        return needSpace;
+    }
+
+    uint32_t getLastChar(fcitx::InputContext *ic) const {
+        if (!ic->capabilityFlags().test(fcitx::CapabilityFlag::SurroundingText)) {
+            return 0;
+        }
+        if (!ic->surroundingText().isValid()) {
+            return 0;
+        }
+
+        const auto &text = ic->surroundingText().text();
+        auto cursor = ic->surroundingText().cursor();
+        if (cursor <= 0) {
+            return 0;
+        }
+
+        uint32_t lastChar;
+        auto start = fcitx::utf8::nextNChar(text.begin(), cursor - 1);
+        fcitx::utf8::getNextChar(start, text.end(), &lastChar);
+        return lastChar;
     }
 };
 

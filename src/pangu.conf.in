@@ -3,7 +3,7 @@ Name=Pangu
 Category=Module
 Version=@PROJECT_VERSION@
 Library=pangu
-Type=@FCITX_ADDON_TYPE@
+Type=Module
 OnDemand=True
 Configurable=True
 

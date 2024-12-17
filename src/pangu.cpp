@@ -24,26 +24,19 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
     auto filterKey = [this](Event &event) {
         if (!enabled_) {
             return;
-        }
+        } 
         auto &keyEvent = static_cast<KeyEventBase &>(event);
-        if (!inWhiteList(keyEvent.inputContext())) {
-            return;
-        }
         if (keyEvent.key().states() || keyEvent.isRelease()) {
             return;
         }
         
         auto key = static_cast<uint32_t>(keyEvent.key().sym());
-        if (key < 32) {  // 控制字符
-            lastChar_ = 0;  // 重置lastChar_
-            return;
-        }
         
-        if (needSpace(key, lastChar_)) {
+        uint32_t lastChar = getLastChar(keyEvent.inputContext());
+        
+        if (needSpace(key, lastChar)) {
             keyEvent.inputContext()->commitString(" ");
         }
-        
-        lastChar_ = key;
     };
 
     eventHandlers_.emplace_back(instance->watchEvent(
@@ -51,9 +44,6 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
         [this, filterKey](Event &event) {
             auto &keyEvent = static_cast<KeyEvent &>(event);
             if (keyEvent.isRelease()) {
-                return;
-            }
-            if (!inWhiteList(keyEvent.inputContext())) {
                 return;
             }
 
@@ -77,9 +67,11 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
         }));
     commitFilterConn_ = instance_->connect<Instance::CommitFilter>(
         [this](InputContext *inputContext, std::string &str) {
-            if (!enabled_ || !inWhiteList(inputContext)) {
+            if (!enabled_) {
                 return;
             }
+            
+            uint32_t lastChar = getLastChar(inputContext);
             
             auto len = utf8::length(str);
             std::string result;
@@ -90,13 +82,12 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
                 char *nps;
                 nps = fcitx_utf8_get_char(ps, &wc);
                 
-                if (needSpace(wc, lastChar_)) {
+                if (needSpace(wc, lastChar)) {
                     result.append(" ");
                 }
                 
                 result.append(ps, nps - ps);
-                
-                lastChar_ = wc;
+                lastChar = wc;
                 ps = nps;
             }
             
@@ -109,10 +100,6 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
 void Pangu::reloadConfig() {
     readAsIni(config_, "conf/pangu.conf");
     toggleAction_.setHotkey(config_.hotkey.value());
-}
-
-bool Pangu::inWhiteList(InputContext *inputContext) const {
-    return toggleAction_.isParent(&inputContext->statusArea());
 }
 
 class PanguModuleFactory : public AddonFactory {

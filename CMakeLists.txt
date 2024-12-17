@@ -1,7 +1,10 @@
-cmake_minimum_required(VERSION 3.21)
-project(fcitx5-pangu)
+cmake_minimum_required(VERSION 3.10)
+project(fcitx5-pangu VERSION 0.1.0)
+set(REQUIRED_FCITX_VERSION 5.1.12)
 
 find_package(Fcitx5Core REQUIRED)
+find_package(Fcitx5Config REQUIRED)
+find_package(Fcitx5Module REQUIRED Notifications)
 # Setup some compiler option that is generally useful and compatible with Fcitx 5 (C++17)
 include("${FCITX_INSTALL_CMAKECONFIG_DIR}/Fcitx5Utils/Fcitx5CompilerSettings.cmake")
 
