@@ -15,7 +15,7 @@
 #include <fcitx/instance.h>
 
 FCITX_CONFIGURATION(PanguConfig, fcitx::Option<fcitx::KeyList> hotkey{
-                                         this, "Hotkey", "Toggle key", {fcitx::Key("Control+Shift+space")}};)
+                                         this, "Hotkey", _("Toggle Key"), {fcitx::Key("Control+Shift+space")}};)
 
 class ToggleAction;
 
@@ -25,8 +25,8 @@ class Pangu final : public fcitx::AddonInstance {
         ToggleAction(Pangu *parent) : parent_(parent) {}
 
         std::string shortText(fcitx::InputContext *) const override {
-            return parent_->enabled_ ? "Pangu enabled"
-                                     : "Pangu disabled";
+            return parent_->enabled_ ? _("Pangu enabled")
+                                     : _("Pangu disabled");
         }
         std::string icon(fcitx::InputContext *) const override {
             return parent_->enabled_ ? "fcitx-pangu-active"

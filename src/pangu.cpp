@@ -51,12 +51,12 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
                 setEnabled(!enabled_, keyEvent.inputContext());
                 if (notifications()) {
                     notifications()->call<INotifications::showTip>(
-                        "fcitx-pangu-toggle", "Pangu",
+                        "fcitx-pangu-toggle", _("Pangu"),
                         enabled_ ? "fcitx-pangu-active"
                                  : "fcitx-pangu-inactive",
-                        "Pangu",
-                        enabled_ ? "Pangu is enabled."
-                                 : "Pangu is disabled.",
+                        _("Pangu"),
+                        enabled_ ? _("Pangu is enabled.")
+                                 : _("Pangu is disabled."),
                         1000);
                 }
                 keyEvent.filterAndAccept();
