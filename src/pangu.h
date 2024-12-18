@@ -113,7 +113,6 @@ private:
         bool lastIsAscii = isAscii(last);
         bool lastIsCJK = isCJK(last);
         
-        // 基本判断：ASCII和CJK之间需要空格
         bool needSpace = (lastIsAscii && currentIsCJK) ||
                         (lastIsCJK && currentIsAscii);
         
@@ -121,25 +120,24 @@ private:
             return false;
         }
 
-        // 根据配置判断特殊情况
         if (*config_.trailingSemiComma) {
-            // 不在逗号和分号前加空格
             if (current == ',' || current == ';') {
                 return false;
             }
         }
 
         if (*config_.semiBracket) {
-            // 不在括号之间加空格
-            if ((last == '(' && current == ')') ||
-                (last == '[' && current == ']') ||
-                (last == '{' && current == '}')) {
+            if ((last == '(' && isCJK(current)) ||
+                (last == '[' && isCJK(current)) ||
+                (last == '{' && isCJK(current)) ||
+                (current == ')' && isCJK(last)) ||
+                (current == ']' && isCJK(last)) ||
+                (current == '}' && isCJK(last))) {
                 return false;
             }
         }
 
         if (*config_.semiQuote) {
-            // 不在引号之间加空格
             if ((last == '"' && current == '"') ||
                 (last == '\'' && current == '\'')) {
                 return false;
@@ -147,14 +145,12 @@ private:
         }
 
         if (*config_.colon) {
-            // 不在冒号和分号前加空格
             if (current == ':' || current == ';') {
                 return false;
             }
         }
 
         if (*config_.endSymbol) {
-            // 不在句号、问号、感叹号前加空格
             if (current == '.' || current == '?' || current == '!') {
                 return false;
             }
