@@ -5,11 +5,11 @@
 #ifndef _FCITX5_PANGU_PANGU_H_
 #define _FCITX5_PANGU_PANGU_H_
 
-#include <fcitx-config/configuration.h>
 #include <fcitx-config/iniparser.h>
 #include <fcitx-utils/i18n.h>
 #include <fcitx-utils/utf8.h>
 #include <fcitx/action.h>
+#include <fcitx/addonfactory.h>
 #include <fcitx/addoninstance.h>
 #include <fcitx/addonmanager.h>
 #include <fcitx/instance.h>
@@ -45,16 +45,19 @@ class Pangu final : public AddonInstance {
 
 public:
     Pangu(Instance *instance);
-
-    void reloadConfig() override;
     const Configuration *getConfig() const override { return &config_; }
+    FCITX_ADDON_DEPENDENCY_LOADER(notifications, instance_->addonManager());
+
+    void reloadConfig() override {
+        readAsIni(config_, "conf/pangu.conf");
+        toggleAction_.setHotkey(config_.hotkey.value());
+    }
+    
     void setConfig(const RawConfig &config) override {
         config_.load(config, true);
         safeSaveAsIni(config_, "conf/pangu.conf");
         toggleAction_.setHotkey(config_.hotkey.value());
     }
-
-    FCITX_ADDON_DEPENDENCY_LOADER(notifications, instance_->addonManager());
 
     void setEnabled(bool enabled, InputContext *ic) {
         if (enabled != enabled_) {
@@ -64,7 +67,7 @@ public:
     }
 
 private:
-    bool enabled_ = true;
+    bool enabled_ = false;
     Instance *instance_;
     PanguConfig config_;
     std::vector<std::unique_ptr<HandlerTableEntry<EventHandler>>>
@@ -117,6 +120,12 @@ private:
         auto start = utf8::nextNChar(text.begin(), cursor - 1);
         utf8::getNextChar(start, text.end(), &lastChar);
         return lastChar;
+    }
+};
+
+class PanguModuleFactory : public AddonFactory {
+    AddonInstance *create(AddonManager *manager) override {
+        return new Pangu(manager->instance());
     }
 };
 

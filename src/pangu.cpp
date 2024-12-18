@@ -9,7 +9,6 @@
 #include <fcitx-utils/i18n.h>
 #include <fcitx-utils/standardpath.h>
 #include <fcitx-utils/utf8.h>
-#include <fcitx/addonfactory.h>
 #include <fcitx/inputcontext.h>
 #include <fcitx/inputmethodentry.h>
 #include <fcitx/statusarea.h>
@@ -24,7 +23,7 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
     auto filterKey = [this](Event &event) {
         if (!enabled_) {
             return;
-        } 
+        }
         auto &keyEvent = static_cast<KeyEventBase &>(event);
         if (keyEvent.key().states() || keyEvent.isRelease()) {
             return;
@@ -96,16 +95,5 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
 
     reloadConfig();
 }
-
-void Pangu::reloadConfig() {
-    readAsIni(config_, "conf/pangu.conf");
-    toggleAction_.setHotkey(config_.hotkey.value());
-}
-
-class PanguModuleFactory : public AddonFactory {
-    AddonInstance *create(AddonManager *manager) override {
-        return new Pangu(manager->instance());
-    }
-};
 
 FCITX_ADDON_FACTORY(PanguModuleFactory)
