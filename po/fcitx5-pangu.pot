@@ -1,4 +1,4 @@
-# Chinese translations for fcitx5-pangu package
+# Translations for fcitx5-pangu package
 # fcitx5-pangu's translation.
 # Copyright (C) 2024 THE fcitx5-pangu'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the fcitx5-pangu package.
@@ -9,10 +9,10 @@ msgstr ""
 "Project-Id-Version: fcitx5-pangu\n"
 "Report-Msgid-Bugs-To: admin@fxs.life\n"
 "POT-Creation-Date: 2024-12-18 7:11+0800\n"
-"PO-Revision-Date: 2024-12-18 7:11+0800\n"
-"Last-Translator: Javs <admin@fxs.life>\n"
-"Language-Team: SCCCP <admin@fxs.life>\n"
-"Language: zh_CN\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: LANG\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
