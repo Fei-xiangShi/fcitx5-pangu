@@ -14,26 +14,28 @@
 #include <fcitx/addonmanager.h>
 #include <fcitx/instance.h>
 
-FCITX_CONFIGURATION(PanguConfig, fcitx::Option<fcitx::KeyList> hotkey{
-                                         this, "Hotkey", _("Toggle Key"), {fcitx::Key("Control+Shift+space")}};)
+namespace fcitx {
+
+FCITX_CONFIGURATION(PanguConfig, Option<KeyList> hotkey{
+                    this, "Hotkey", _("Toggle Key"), {Key("Control+Shift+space")}};)
 
 class ToggleAction;
 
-class Pangu final : public fcitx::AddonInstance {
-    class ToggleAction : public fcitx::Action {
+class Pangu final : public AddonInstance {
+    class ToggleAction : public Action {
     public:
         ToggleAction(Pangu *parent) : parent_(parent) {}
 
-        std::string shortText(fcitx::InputContext *) const override {
+        std::string shortText(InputContext *) const override {
             return parent_->enabled_ ? _("Pangu enabled")
                                      : _("Pangu disabled");
         }
-        std::string icon(fcitx::InputContext *) const override {
+        std::string icon(InputContext *) const override {
             return parent_->enabled_ ? "fcitx-pangu-active"
                                      : "fcitx-pangu-inactive";
         }
 
-        void activate(fcitx::InputContext *ic) override {
+        void activate(InputContext *ic) override {
             return parent_->setEnabled(!parent_->enabled_, ic);
         }
 
@@ -42,19 +44,19 @@ class Pangu final : public fcitx::AddonInstance {
     };
 
 public:
-    Pangu(fcitx::Instance *instance);
+    Pangu(Instance *instance);
 
     void reloadConfig() override;
-    const fcitx::Configuration *getConfig() const override { return &config_; }
-    void setConfig(const fcitx::RawConfig &config) override {
+    const Configuration *getConfig() const override { return &config_; }
+    void setConfig(const RawConfig &config) override {
         config_.load(config, true);
-        fcitx::safeSaveAsIni(config_, "conf/pangu.conf");
+        safeSaveAsIni(config_, "conf/pangu.conf");
         toggleAction_.setHotkey(config_.hotkey.value());
     }
 
     FCITX_ADDON_DEPENDENCY_LOADER(notifications, instance_->addonManager());
 
-    void setEnabled(bool enabled, fcitx::InputContext *ic) {
+    void setEnabled(bool enabled, InputContext *ic) {
         if (enabled != enabled_) {
             enabled_ = enabled;
             toggleAction_.update(ic);
@@ -63,11 +65,11 @@ public:
 
 private:
     bool enabled_ = true;
-    fcitx::Instance *instance_;
+    Instance *instance_;
     PanguConfig config_;
-    std::vector<std::unique_ptr<fcitx::HandlerTableEntry<fcitx::EventHandler>>>
+    std::vector<std::unique_ptr<HandlerTableEntry<EventHandler>>>
         eventHandlers_;
-    fcitx::ScopedConnection commitFilterConn_;
+    ScopedConnection commitFilterConn_;
     ToggleAction toggleAction_{this};
     uint32_t lastChar_ = 0;
 
@@ -97,8 +99,8 @@ private:
         return needSpace;
     }
 
-    uint32_t getLastChar(fcitx::InputContext *ic) const {
-        if (!ic->capabilityFlags().test(fcitx::CapabilityFlag::SurroundingText)) {
+    uint32_t getLastChar(InputContext *ic) const {
+        if (!ic->capabilityFlags().test(CapabilityFlag::SurroundingText)) {
             return 0;
         }
         if (!ic->surroundingText().isValid()) {
@@ -112,10 +114,12 @@ private:
         }
 
         uint32_t lastChar;
-        auto start = fcitx::utf8::nextNChar(text.begin(), cursor - 1);
-        fcitx::utf8::getNextChar(start, text.end(), &lastChar);
+        auto start = utf8::nextNChar(text.begin(), cursor - 1);
+        utf8::getNextChar(start, text.end(), &lastChar);
         return lastChar;
     }
 };
+
+}
 
 #endif // _FCITX5_PANGU_PANGU_H_

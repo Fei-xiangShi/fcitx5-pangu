@@ -14,7 +14,7 @@ Comment=Auto insert space between non-ASCII characters and ASCII characters
 Category=Module
 Version=@PROJECT_VERSION@
 Library=pangu
-Type=Module
+Type=SharedLibrary
 OnDemand=True
 Configurable=True
 
