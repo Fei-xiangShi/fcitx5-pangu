@@ -71,14 +71,23 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
             }
             
             uint32_t lastChar = getLastChar(inputContext);
+            uint32_t nextChar = getNextChar(inputContext);
             
             auto len = utf8::length(str);
             std::string result;
             const auto *ps = str.c_str();
             
-            for (size_t i = 0; i < len; ++i) {
+            uint32_t firstChar;
+            char *nps = fcitx_utf8_get_char(ps, &firstChar);
+            if (needSpace(firstChar, lastChar)) {
+                result.append(" ");
+            }
+            result.append(ps, nps - ps);
+            lastChar = firstChar;
+            ps = nps;
+            
+            for (size_t i = 1; i < len; ++i) {
                 uint32_t wc;
-                char *nps;
                 nps = fcitx_utf8_get_char(ps, &wc);
                 
                 if (needSpace(wc, lastChar)) {
@@ -88,6 +97,10 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
                 result.append(ps, nps - ps);
                 lastChar = wc;
                 ps = nps;
+            }
+
+            if (len > 0 && needSpace(nextChar, lastChar)) {
+                result.append(" ");
             }
             
             str = std::move(result);

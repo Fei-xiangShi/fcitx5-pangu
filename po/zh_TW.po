@@ -1,5 +1,5 @@
-# Chinese translations for fcitx5-pangu package
-# fcitx5-pangu 软件包的简体中文翻译.
+# Traditional Chinese translations for fcitx5-pangu package
+# fcitx5-pangu's Traditional Chinese translation.
 # Copyright (C) 2024 THE fcitx5-pangu'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the fcitx5-pangu package.
 # Javs <admin@fxs.life>, 2024
@@ -12,34 +12,30 @@ msgstr ""
 "PO-Revision-Date: 2024-12-18 7:11+0800\n"
 "Last-Translator: Javs <admin@fxs.life>\n"
 "Language-Team: SCCCP <admin@fxs.life>\n"
-"Language: zh_CN\n"
+"Language: zh_TW\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/pangu.h:18
 msgid "Toggle Key"
-msgstr ""
-
-#: src/pangu.h:18
-msgid "Toggle Key"
-msgstr ""
+msgstr "切換鍵"
 
 #: src/pangu.h:28 src/pangu.cpp:58
 msgid "Pangu enabled"
-msgstr "Pangu 有効"
+msgstr "盤古已啟用"
 
 #: src/pangu.h:29 src/pangu.cpp:59
 msgid "Pangu disabled"
-msgstr ""
+msgstr "盤古已禁用"
 
 #: src/pangu.h:30 src/pangu.cpp:54 src/pangu.cpp:57
 msgid "Pangu"
-msgstr ""
+msgstr "盤古之白"
 
 #: src/pangu.conf.in:10
 msgid "Auto insert space between non-ASCII characters and ASCII characters"
-msgstr ""
+msgstr "在輸入非 ASCII 字符時，自動插入空格"
 
 
 

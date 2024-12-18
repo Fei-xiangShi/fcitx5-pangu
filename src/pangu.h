@@ -67,7 +67,7 @@ public:
     }
 
 private:
-    bool enabled_ = false;
+    bool enabled_ = true;
     Instance *instance_;
     PanguConfig config_;
     std::vector<std::unique_ptr<HandlerTableEntry<EventHandler>>>
@@ -77,7 +77,7 @@ private:
     uint32_t lastChar_ = 0;
 
     bool isAscii(uint32_t ch) const {
-        return ch < 128;
+        return ch < 128 && ch != 32;
     }
 
     bool isCJK(uint32_t ch) const {
@@ -87,7 +87,7 @@ private:
     }
 
     bool needSpace(uint32_t current, uint32_t last) const {
-        if (last == 0) {
+        if (last == 0 || current == 0) {
             return false;
         }
         
@@ -120,6 +120,27 @@ private:
         auto start = utf8::nextNChar(text.begin(), cursor - 1);
         utf8::getNextChar(start, text.end(), &lastChar);
         return lastChar;
+    }
+
+    uint32_t getNextChar(InputContext *ic) const {
+        if (!ic->capabilityFlags().test(CapabilityFlag::SurroundingText)) {
+            return 0;
+        }
+        if (!ic->surroundingText().isValid()) {
+            return 0;
+        }
+
+        const auto &text = ic->surroundingText().text();
+        auto cursor = ic->surroundingText().cursor();
+        if (cursor >= text.size()) {
+            return 0;
+        }
+
+        uint32_t nextChar;
+        auto start = utf8::nextNChar(text.begin(), cursor);
+        utf8::getNextChar(start, text.end(), &nextChar);
+        
+        return nextChar;
     }
 };
 

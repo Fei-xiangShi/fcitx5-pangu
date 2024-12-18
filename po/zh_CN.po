@@ -31,4 +31,10 @@ msgstr "盘古已禁用"
 
 #: src/pangu.h:30 src/pangu.cpp:54 src/pangu.cpp:57
 msgid "Pangu"
-msgstr "盘古"
+msgstr "盘古之白"
+
+#: src/pangu.conf.in:10
+msgid "Auto insert space between non-ASCII characters and ASCII characters"
+msgstr "在输入非 ASCII 字符时，自动插入空格"
+
+
