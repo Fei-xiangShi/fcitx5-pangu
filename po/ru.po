@@ -17,24 +17,44 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/pangu.h:18
+#: src/pangu.h:21
 msgid "Toggle Key"
-msgstr "Переключить клавишу"
+msgstr "Клавиша переключения"
 
-#: src/pangu.h:28 src/pangu.cpp:58
+#: src/pangu.h:23
+msgid "No space before the trailing comma"
+msgstr "Не добавлять пробел перед запятой"
+
+#: src/pangu.h:27
+msgid "No spaces between brackets"
+msgstr "Не добавлять пробелы между скобками"
+
+#: src/pangu.h:30
+msgid "No spaces between quotes"
+msgstr "Не добавлять пробелы между кавычками"
+
+#: src/pangu.h:33
+msgid "No space before colon and semicolon"
+msgstr "Не добавлять пробел перед двоеточием и точкой с запятой"
+
+#: src/pangu.h:36
+msgid "No space before end symbol"
+msgstr "Не добавлять пробел перед точкой, вопросительным и восклицательным знаками"
+
+#: src/pangu.h:47 src/pangu.cpp:57
 msgid "Pangu enabled"
-msgstr "Pangu включен"
+msgstr "Паньгу включен"
 
-#: src/pangu.h:29 src/pangu.cpp:59
+#: src/pangu.h:48 src/pangu.cpp:58
 msgid "Pangu disabled"
-msgstr "Pangu выключен"
+msgstr "Паньгу выключен"
 
-#: src/pangu.h:30 src/pangu.cpp:54 src/pangu.cpp:57
+#: src/pangu.h:47 src/pangu.cpp:56
 msgid "Pangu"
-msgstr "Pangu"
+msgstr "Паньгу"
 
 #: src/pangu.conf.in:10
 msgid "Auto insert space between non-ASCII characters and ASCII characters"
-msgstr "Автоматически вставлять пробелы между не-ASCII и ASCII символами"
+msgstr "Автоматически добавлять пробелы при вводе не-ASCII символов"
 
 

@@ -16,8 +16,25 @@
 
 namespace fcitx {
 
-FCITX_CONFIGURATION(PanguConfig, Option<KeyList> hotkey{
-                    this, "Hotkey", _("Toggle Key"), {Key("Control+Shift+space")}};)
+FCITX_CONFIGURATION(PanguConfig,
+                    Option<KeyList> hotkey{
+                        this, "Hotkey", _("Toggle Key"), {Key("Control+Shift+space")}};
+                    Option<bool> trailingSemiComma{
+                        this, "No space before the trailing comma",
+                        _("No space before the trailing comma"), true};
+                    Option<bool> semiBracket{
+                        this, "No spaces between brackets",
+                        _("No spaces between brackets"), true};
+                    Option<bool> semiQuote{
+                        this, "No spaces between quotes",
+                        _("No spaces between quotes"), true};
+                    Option<bool> colon{
+                        this, "No space before colon and semicolon",
+                        _("No space before colon and semicolon"), true};
+                    Option<bool> endSymbol{
+                        this, "No space before end symbol",
+                        _("No space before end symbol"), true};
+                    )
 
 class ToggleAction;
 
@@ -96,8 +113,52 @@ private:
         bool lastIsAscii = isAscii(last);
         bool lastIsCJK = isCJK(last);
         
+        // 基本判断：ASCII和CJK之间需要空格
         bool needSpace = (lastIsAscii && currentIsCJK) ||
                         (lastIsCJK && currentIsAscii);
+        
+        if (!needSpace) {
+            return false;
+        }
+
+        // 根据配置判断特殊情况
+        if (*config_.trailingSemiComma) {
+            // 不在逗号和分号前加空格
+            if (current == ',' || current == ';') {
+                return false;
+            }
+        }
+
+        if (*config_.semiBracket) {
+            // 不在括号之间加空格
+            if ((last == '(' && current == ')') ||
+                (last == '[' && current == ']') ||
+                (last == '{' && current == '}')) {
+                return false;
+            }
+        }
+
+        if (*config_.semiQuote) {
+            // 不在引号之间加空格
+            if ((last == '"' && current == '"') ||
+                (last == '\'' && current == '\'')) {
+                return false;
+            }
+        }
+
+        if (*config_.colon) {
+            // 不在冒号和分号前加空格
+            if (current == ':' || current == ';') {
+                return false;
+            }
+        }
+
+        if (*config_.endSymbol) {
+            // 不在句号、问号、感叹号前加空格
+            if (current == '.' || current == '?' || current == '!') {
+                return false;
+            }
+        }
 
         return needSpace;
     }

@@ -17,25 +17,45 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/pangu.h:18
+#: src/pangu.h:21
 msgid "Toggle Key"
 msgstr "切り替えキー"
 
-#: src/pangu.h:28 src/pangu.cpp:58
+#: src/pangu.h:23
+msgid "No space before the trailing comma"
+msgstr "半角カンマの前にスペースを入れない"
+
+#: src/pangu.h:27
+msgid "No spaces between brackets"
+msgstr "半角括弧の間にスペースを入れない"
+
+#: src/pangu.h:30
+msgid "No spaces between quotes"
+msgstr "半角引用符の間にスペースを入れない"
+
+#: src/pangu.h:33
+msgid "No space before colon and semicolon"
+msgstr "半角コロンとセミコロンの前にスペースを入れない"
+
+#: src/pangu.h:36
+msgid "No space before end symbol"
+msgstr "句点、疑問符、感嘆符の前にスペースを入れない"
+
+#: src/pangu.h:47 src/pangu.cpp:57
 msgid "Pangu enabled"
-msgstr "盤古が有効になりました"
+msgstr "盤古が有効"
 
-#: src/pangu.h:29 src/pangu.cpp:59
+#: src/pangu.h:48 src/pangu.cpp:58
 msgid "Pangu disabled"
-msgstr "盤古が無効になりました"
+msgstr "盤古が無効"
 
-#: src/pangu.h:30 src/pangu.cpp:54 src/pangu.cpp:57
+#: src/pangu.h:47 src/pangu.cpp:56
 msgid "Pangu"
 msgstr "盤古の白"
 
 #: src/pangu.conf.in:10
 msgid "Auto insert space between non-ASCII characters and ASCII characters"
-msgstr "非 ASCII 文字と ASCII 文字の間に自動的にスペースを挿入"
+msgstr "非 ASCII 文字を入力する際、自動的にスペースを挿入"
 
 
 
