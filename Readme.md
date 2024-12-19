@@ -40,7 +40,7 @@ sudo make install
 可以从 AUR 安装:
 
 ```bash
-yay -S fcitx5-pangu
+yay -S fcitx5-pangu-git
 ```
 
 ## ⚙️ 配置
