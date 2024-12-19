@@ -138,8 +138,10 @@ private:
         }
 
         if (*config_.semiQuote) {
-            if ((last == '"' && current == '"') ||
-                (last == '\'' && current == '\'')) {
+            if ((last == '"' && isCJK(current)) ||
+                current == '"' && isCJK(last) ||
+                last == '\'' && isCJK(current) ||
+                current == '\'' && isCJK(last)) {
                 return false;
             }
         }
