@@ -26,11 +26,11 @@ msgid "No space before the trailing comma"
 msgstr "반각 쉼표 앞에 공백 추가하지 않음"
 
 #: src/pangu.h:27
-msgid "No spaces between brackets"
+msgid "No space between brackets"
 msgstr "반각 괄호 사이에 공백 추가하지 않음"
 
 #: src/pangu.h:30
-msgid "No spaces between quotes"
+msgid "No space between quotes"
 msgstr "반각 따옴표 사이에 공백 추가하지 않음"
 
 #: src/pangu.h:33

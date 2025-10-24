@@ -1,5 +1,8 @@
 add_library(pangu MODULE pangu.cpp)
 target_link_libraries(pangu Fcitx5::Core Fcitx5::Config Fcitx5::Module::Notifications)
+target_compile_definitions(pangu PRIVATE 
+    FCITX_GETTEXT_DOMAIN="fcitx5-pangu"
+    FCITX_INSTALL_LOCALEDIR="${FCITX_INSTALL_LOCALEDIR}")
 set_target_properties(pangu PROPERTIES PREFIX "")
 install(TARGETS pangu DESTINATION "${FCITX_INSTALL_LIBDIR}/fcitx5")
 fcitx5_translate_desktop_file(pangu.conf.in pangu.conf)

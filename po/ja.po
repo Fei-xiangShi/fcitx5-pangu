@@ -26,11 +26,11 @@ msgid "No space before the trailing comma"
 msgstr "半角カンマの前にスペースを入れない"
 
 #: src/pangu.h:27
-msgid "No spaces between brackets"
+msgid "No space between brackets"
 msgstr "半角括弧の間にスペースを入れない"
 
 #: src/pangu.h:30
-msgid "No spaces between quotes"
+msgid "No space between quotes"
 msgstr "半角引用符の間にスペースを入れない"
 
 #: src/pangu.h:33

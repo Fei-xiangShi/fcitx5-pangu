@@ -14,10 +14,19 @@
 #include <fcitx/statusarea.h>
 #include <fcitx/userinterfacemanager.h>
 #include <fcntl.h>
+#ifndef FCITX_GETTEXT_DOMAIN
+#define FCITX_GETTEXT_DOMAIN "fcitx5-pangu"
+#endif
+
+#ifndef FCITX_INSTALL_LOCALEDIR
+#define FCITX_INSTALL_LOCALEDIR "/usr/share/locale"
+#endif
 
 using namespace fcitx;
 
 Pangu::Pangu(Instance *instance) : instance_(instance) {
+    registerDomain(FCITX_GETTEXT_DOMAIN, FCITX_INSTALL_LOCALEDIR);
+
     instance_->userInterfaceManager().registerAction("pangu",
                                                      &toggleAction_);
     auto filterKey = [this](Event &event) {

@@ -23,11 +23,11 @@ FCITX_CONFIGURATION(PanguConfig,
                         this, "No space before the trailing comma",
                         _("No space before the trailing comma"), true};
                     Option<bool> semiBracket{
-                        this, "No spaces between brackets",
-                        _("No spaces between brackets"), true};
+                        this, "No space between brackets",
+                        _("No space between brackets"), true};
                     Option<bool> semiQuote{
-                        this, "No spaces between quotes",
-                        _("No spaces between quotes"), true};
+                        this, "No space between quotes",
+                        _("No space between quotes"), true};
                     Option<bool> colon{
                         this, "No space before colon and semicolon",
                         _("No space before colon and semicolon"), true};

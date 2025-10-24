@@ -26,11 +26,11 @@ msgid "No space before the trailing comma"
 msgstr ""
 
 #: src/pangu.h:27
-msgid "No spaces between brackets"
+msgid "No space between brackets"
 msgstr ""
 
 #: src/pangu.h:30
-msgid "No spaces between quotes"
+msgid "No space between quotes"
 msgstr ""
 
 #: src/pangu.h:33
