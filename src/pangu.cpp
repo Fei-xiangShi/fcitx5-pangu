@@ -108,7 +108,7 @@ Pangu::Pangu(Instance *instance) : instance_(instance) {
                 ps = nps;
             }
 
-            if (len > 0 && needSpace(nextChar, lastChar)) {
+            if (len > 0 && nextChar > 32 && needSpace(nextChar, lastChar)) {
                 result.append(" ");
             }
             
